@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Image } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
+import redLightNav from  '../images/redLightMain.jpg';
 
 class NavBar extends Component {
+  activeItem = (navPath) => {
+    return navPath === this.props.location.pathname;
+  }
+
   rightNavs = () => {
     const { user, dispatch, history } = this.props;
 
@@ -22,9 +27,11 @@ class NavBar extends Component {
       <Menu.Menu position='right'>
         <Link to='/register'>
           <Menu.Item name='Register' />
+          Register
         </Link>
         <Link to='/login'>
           <Menu.Item name='Login' />
+          Login
         </Link>
       </Menu.Menu>
     );
@@ -35,7 +42,8 @@ class NavBar extends Component {
       <div>
         <Menu pointing secondary>
           <Link to='/'>
-            <Menu.Item name='home' />
+            <Menu.Item name='Home' active={this.activeItem('/')} />
+            <Image size='mini' src={redLightNav} />
           </Link>
           { this.rightNavs() }
         </Menu>
