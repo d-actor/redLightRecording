@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Image } from 'semantic-ui-react';
+import { Menu, Image, Container } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
@@ -16,6 +16,11 @@ class NavBar extends Component {
     if (user.id) {
       return (
         <Menu.Menu position='right'>
+          <Link to='/schedule'>
+            <Menu.Item
+              name='Scheduling'
+            />
+          </Link>
           <Menu.Item
             name='Logout'
             onClick={() => dispatch(handleLogout(history))}
@@ -26,12 +31,14 @@ class NavBar extends Component {
     return (
       <Menu.Menu position='right'>
         <Link to='/register'>
-          <Menu.Item name='Register' />
-          Register
+          <Menu.Item 
+            name='Register' 
+          />
         </Link>
         <Link to='/login'>
-          <Menu.Item name='Login' />
-          Login
+          <Menu.Item
+            name='Login' 
+          />
         </Link>
       </Menu.Menu>
     );
@@ -39,15 +46,25 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div>
-        <Menu pointing secondary>
+      <Container>
+        <Menu stackable fixed='top'>
           <Link to='/'>
-            <Menu.Item name='Home' active={this.activeItem('/')} />
+            <Menu.Item active={this.activeItem('/')}>
             <Image size='mini' src={redLightNav} />
+            </Menu.Item>
+          </Link>
+          <Link to='/gear'>
+            <Menu.Item name='Gear' />
+          </Link>
+          <Link to='/samples'>
+            <Menu.Item name='Featured Projects' />
+          </Link>
+          <Link to='/Contact'>
+            <Menu.Item name='Contact' />
           </Link>
           { this.rightNavs() }
         </Menu>
-      </div>
+      </Container>
     );
   }
 }
